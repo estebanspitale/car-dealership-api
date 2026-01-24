@@ -1,7 +1,8 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/vehiclesController')
-const validate = require('../middleware/validate')
+import express from 'express';
+import controller from '../controllers/vehiclesController.js';
+import validate from '../middleware/validate.js';
+
+const router = express.Router();
 
 /**
  * @swagger
@@ -13,7 +14,7 @@ const validate = require('../middleware/validate')
  *       200:
  *         description: Successful response
  */
-router.get('/', controller.getAllVehicles)
+router.get('/', controller.getAllVehicles);
 
 /**
  * @swagger
@@ -32,7 +33,7 @@ router.get('/', controller.getAllVehicles)
  *       404:
  *         description: Vehicle not found
  */
-router.get('/:id', controller.getVehicleById)
+router.get('/:id', controller.getVehicleById);
 
 /**
  * @swagger
@@ -74,7 +75,7 @@ router.get('/:id', controller.getVehicleById)
  *       400:
  *         description: Invalid input
  */
-router.post('/', validate.vehicle, controller.createVehicle)
+router.post('/', validate.vehicle, controller.createVehicle);
 
 /**
  * @swagger
@@ -95,7 +96,7 @@ router.post('/', validate.vehicle, controller.createVehicle)
  *       404:
  *         description: Vehicle not found
  */
-router.put('/:id', validate.vehicle, controller.updateVehicle)
+router.put('/:id', validate.vehicle, controller.updateVehicle);
 
 /**
  * @swagger
@@ -114,6 +115,6 @@ router.put('/:id', validate.vehicle, controller.updateVehicle)
  *       404:
  *         description: Vehicle not found
  */
-router.delete('/:id', controller.deleteVehicle)
+router.delete('/:id', controller.deleteVehicle);
 
-module.exports = router
+export default router;
