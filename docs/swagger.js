@@ -9,11 +9,11 @@ const options = {
       description: 'API for managing vehicles in a car dealership'
     },
     servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Local server'
-      }
-    ]
+  {
+    url: 'https://car-dealership-api-xtx6.onrender.com',
+    description: 'Production server'
+  }
+]
   },
   apis: ['./routes/*.js']
 }

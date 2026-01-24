@@ -7,6 +7,10 @@ const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpec = require('./docs/swagger')
 
+import userRoutes from './routes/users.js';
+
+app.use('/users', userRoutes);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(express.json())
 
