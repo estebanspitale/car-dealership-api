@@ -17,11 +17,27 @@ const options = {
         url: 'http://localhost:3000',
         description: 'Local server'
       }
+    ],
+
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    },
+
+    security: [
+      {
+        bearerAuth: []
+      }
     ]
   },
+
   apis: ['./routes/*.js']
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-
 export default swaggerSpec;
