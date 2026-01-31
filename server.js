@@ -6,7 +6,7 @@ import swaggerSpec from './docs/swagger.js';
 
 import vehicleRoutes from './routes/vehiclesRoutes.js';
 import userRoutes from './routes/users.js';
-import authRoutes from "./routes/authRoutes.js";
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -14,11 +14,15 @@ const app = express();
 
 app.use(express.json());
 
+// Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Routes
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
+// DB
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
