@@ -7,10 +7,51 @@ const router = express.Router()
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Vehicle:
+ *       type: object
+ *       required:
+ *         - make
+ *         - model
+ *         - year
+ *         - price
+ *       properties:
+ *         make:
+ *           type: string
+ *           example: Toyota
+ *         model:
+ *           type: string
+ *           example: Corolla
+ *         year:
+ *           type: number
+ *           example: 2022
+ *         price:
+ *           type: number
+ *           example: 18000
+ *         mileage:
+ *           type: number
+ *           example: 35000
+ *         color:
+ *           type: string
+ *           example: White
+ *         fuelType:
+ *           type: string
+ *           example: Gasoline
+ *         transmission:
+ *           type: string
+ *           example: Automatic
+ *         status:
+ *           type: string
+ *           example: Available
+ */
+
+/**
+ * @swagger
  * /api/vehicles:
  *   get:
  *     summary: Get all vehicles
- *     description: Returns a list of all vehicles in the dealership
+ *     tags: [Vehicles]
  *     responses:
  *       200:
  *         description: Successful response
@@ -22,6 +63,7 @@ router.get('/', controller.getAllVehicles)
  * /api/vehicles/{id}:
  *   get:
  *     summary: Get a vehicle by ID
+ *     tags: [Vehicles]
  *     parameters:
  *       - in: path
  *         name: id
@@ -41,9 +83,15 @@ router.get('/:id', controller.getVehicleById)
  * /api/vehicles:
  *   post:
  *     summary: Create a new vehicle
- *     description: Adds a new vehicle to the dealership
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vehicle'
  *     responses:
  *       201:
  *         description: Vehicle created successfully
@@ -64,12 +112,21 @@ router.post(
  * /api/vehicles/{id}:
  *   put:
  *     summary: Update a vehicle
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Vehicle'
  *     responses:
  *       200:
  *         description: Vehicle updated
@@ -90,6 +147,9 @@ router.put(
  * /api/vehicles/{id}:
  *   delete:
  *     summary: Delete a vehicle
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
