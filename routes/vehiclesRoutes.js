@@ -1,8 +1,9 @@
-import express from 'express';
-import controller from '../controllers/vehiclesController.js';
-import validate from '../middleware/validate.js';
+import express from 'express'
+import controller from '../controllers/vehiclesController.js'
+import validate from '../middleware/validate.js'
+import { authenticate } from '../middleware/auth.js'
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * @swagger
@@ -10,17 +11,19 @@ const router = express.Router();
  *   get:
  *     summary: Get all vehicles
  *     description: Returns a list of all vehicles in the dealership
+ *     tags: [Vehicles]
  *     responses:
  *       200:
  *         description: Successful response
  */
-router.get('/', controller.getAllVehicles);
+router.get('/', controller.getAllVehicles)
 
 /**
  * @swagger
  * /api/vehicles/{id}:
  *   get:
  *     summary: Get a vehicle by ID
+ *     tags: [Vehicles]
  *     parameters:
  *       - in: path
  *         name: id
@@ -33,7 +36,7 @@ router.get('/', controller.getAllVehicles);
  *       404:
  *         description: Vehicle not found
  */
-router.get('/:id', controller.getVehicleById);
+router.get('/:id', controller.getVehicleById)
 
 /**
  * @swagger
@@ -41,6 +44,9 @@ router.get('/:id', controller.getVehicleById);
  *   post:
  *     summary: Create a new vehicle
  *     description: Adds a new vehicle to the dealership
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -52,6 +58,10 @@ router.get('/:id', controller.getVehicleById);
  *               - model
  *               - year
  *               - price
+ *               - mileage
+ *               - color
+ *               - fuelType
+ *               - transmission
  *             properties:
  *               make:
  *                 type: string
@@ -74,14 +84,24 @@ router.get('/:id', controller.getVehicleById);
  *         description: Vehicle created successfully
  *       400:
  *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', validate.vehicle, controller.createVehicle);
+router.post(
+  '/',
+  authenticate,
+  validate.vehicle,
+  controller.createVehicle
+)
 
 /**
  * @swagger
  * /api/vehicles/{id}:
  *   put:
  *     summary: Update a vehicle
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -93,16 +113,28 @@ router.post('/', validate.vehicle, controller.createVehicle);
  *     responses:
  *       200:
  *         description: Vehicle updated
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Vehicle not found
  */
-router.put('/:id', validate.vehicle, controller.updateVehicle);
+router.put(
+  '/:id',
+  authenticate,
+  validate.vehicle,
+  controller.updateVehicle
+)
 
 /**
  * @swagger
  * /api/vehicles/{id}:
  *   delete:
  *     summary: Delete a vehicle
+ *     tags: [Vehicles]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -112,9 +144,15 @@ router.put('/:id', validate.vehicle, controller.updateVehicle);
  *     responses:
  *       200:
  *         description: Vehicle deleted
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Vehicle not found
  */
-router.delete('/:id', controller.deleteVehicle);
+router.delete(
+  '/:id',
+  authenticate,
+  controller.deleteVehicle
+)
 
-export default router;
+export default router

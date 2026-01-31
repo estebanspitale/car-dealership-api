@@ -23,23 +23,26 @@ export const getUserById = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role } = req.body
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role
-    });
+    })
 
-    res.status(201).json(user);
+    res.status(201).json({
+      message: 'User created successfully',
+      userId: user._id
+    })
   } catch (error) {
-    error.status = 400;
-    next(error);
+    error.status = 400
+    next(error)
   }
-};
+}
 
 export const updateUser = async (req, res, next) => {
   try {
