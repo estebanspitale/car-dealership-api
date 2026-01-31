@@ -1,4 +1,4 @@
-export const validateUser = (req, res, next) => {
+export const validateuser = (req, res, next) => {
   const { name, email, role } = req.body;
 
   if (!name || !email || !role) {
