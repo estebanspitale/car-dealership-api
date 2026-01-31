@@ -19,6 +19,7 @@ const router = express.Router()
  *       required:
  *         - name
  *         - email
+ *         - password
  *         - role
  *       properties:
  *         name:
@@ -27,6 +28,9 @@ const router = express.Router()
  *         email:
  *           type: string
  *           example: juan@email.com
+ *         password:
+ *           type: string
+ *           example: MySecurePassword123
  *         role:
  *           type: string
  *           enum: [admin, seller, customer]

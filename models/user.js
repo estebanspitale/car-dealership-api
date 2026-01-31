@@ -7,15 +7,22 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
   email: {
-    type: String,
-    required: true,
-    unique: true
-  },
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true
+    },
+  password: {
+      type: String,
+      required: true
+    },
   role: {
-    type: String,
-    required: true,
-    enum: ['admin', 'seller', 'customer']
-  }
-});
+      type: String,
+      enum: ['admin', 'seller', 'customer'],
+      default: 'customer'
+    }
+},
+  { timestamps: true }
+);
 
 export default mongoose.model('User', userSchema);

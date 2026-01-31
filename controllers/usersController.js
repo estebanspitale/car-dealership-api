@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import User from '../models/user.js';
 
 export const getAllUsers = async (req, res, next) => {
@@ -22,11 +23,21 @@ export const getUserById = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
   try {
-    const user = await User.create(req.body);
+    const { name, email, password, role } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role
+    });
+
     res.status(201).json(user);
-  } catch (err) {
-    err.status = 400;
-    next(err);
+  } catch (error) {
+    error.status = 400;
+    next(error);
   }
 };
 
