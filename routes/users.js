@@ -6,6 +6,8 @@ import {
   updateUser,
   deleteUser
 } from '../controllers/usersController.js'
+
+import { authenticate } from '../middleware/auth.js'
 import { validateUser } from '../middleware/validateUser.js'
 
 const router = express.Router()
@@ -47,7 +49,7 @@ const router = express.Router()
  *       200:
  *         description: List of users
  */
-router.get('/', getAllUsers)
+router.get('/', authenticate, getAllUsers)
 
 /**
  * @swagger
@@ -67,7 +69,7 @@ router.get('/', getAllUsers)
  *       404:
  *         description: User not found
  */
-router.get('/:id', getUserById)
+router.get('/:id', authenticate, getUserById)
 
 /**
  * @swagger
@@ -87,7 +89,7 @@ router.get('/:id', getUserById)
  *       400:
  *         description: Validation error
  */
-router.post('/', validateUser, createUser)
+router.post('/', authenticate, validateUser, createUser)
 
 /**
  * @swagger
@@ -115,7 +117,7 @@ router.post('/', validateUser, createUser)
  *       404:
  *         description: User not found
  */
-router.put('/:id', validateUser, updateUser)
+router.put('/:id', authenticate, validateUser, updateUser)
 
 /**
  * @swagger
@@ -135,6 +137,6 @@ router.put('/:id', validateUser, updateUser)
  *       404:
  *         description: User not found
  */
-router.delete('/:id', deleteUser)
+router.delete('/:id', authenticate, deleteUser)
 
 export default router
