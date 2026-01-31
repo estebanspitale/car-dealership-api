@@ -6,6 +6,7 @@ import swaggerSpec from './docs/swagger.js';
 
 import vehicleRoutes from './routes/vehiclesRoutes.js';
 import userRoutes from './routes/users.js';
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
