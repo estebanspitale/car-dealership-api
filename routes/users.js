@@ -6,7 +6,7 @@ import {
   updateUser,
   deleteUser
 } from '../controllers/usersController.js'
-import { validateUser } from '../middleware/validateUser.js'
+import { validateUser } from '../middleware/validateuser.js'
 
 const router = express.Router()
 
