@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swagger.js';
 
@@ -12,17 +13,16 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
-// Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Routes
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 
-// DB
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))

@@ -1,4 +1,4 @@
-exports.vehicle = (req, res, next) => {
+const vehicle = (req, res, next) => {
   const { make, model, year, price } = req.body
 
   if (!make || !model || !year || !price) {
@@ -16,4 +16,8 @@ exports.vehicle = (req, res, next) => {
   }
 
   next()
+}
+
+export default {
+  vehicle
 }

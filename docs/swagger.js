@@ -1,4 +1,4 @@
-const swaggerJsdoc = require('swagger-jsdoc')
+import swaggerJsdoc from 'swagger-jsdoc';
 
 const options = {
   definition: {
@@ -9,18 +9,19 @@ const options = {
       description: 'API for managing vehicles in a car dealership'
     },
     servers: [
-  {
-    url: 'https://car-dealership-api-xtx6.onrender.com',
-    description: 'Production server'
-
-  },
-  {
-    url: 'http://localhost:3000',
-    description: 'Local server'
-  }
-]
+      {
+        url: 'https://car-dealership-api-xtx6.onrender.com',
+        description: 'Production server'
+      },
+      {
+        url: 'http://localhost:3000',
+        description: 'Local server'
+      }
+    ]
   },
   apis: ['./routes/*.js']
-}
+};
 
-module.exports = swaggerJsdoc(options)
+const swaggerSpec = swaggerJsdoc(options);
+
+export default swaggerSpec;
